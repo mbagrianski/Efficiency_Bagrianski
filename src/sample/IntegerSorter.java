@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class IntegerSorter{
     public static void main(String[] args) {
@@ -92,8 +93,12 @@ public class IntegerSorter{
     	return c;
     }
     
-    public static int[] sort_method3(int[] array) { 	
-			
+    public static int[] sort_method3(int[] array) { 
+    	if(array.length == 2) {
+    		combineArrays(Arrays.copyOfRange(array, 0, array.length/2-1), Arrays.copyOfRange(array, array.length/2, array.length-1));
+    	}else {
+    		sort_method3();
+    	}
     	return array;
     }
     
