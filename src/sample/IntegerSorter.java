@@ -1,5 +1,11 @@
 package Efficiency;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class IntegerSorter{
     public static void main(String[] args) {
 
@@ -9,10 +15,11 @@ public class IntegerSorter{
             System.out.print(array1[i]);
         }
         System.out.print("\n");
-        array1 = combineArrays(array1, array2);
-        for(int i = 0; i < array1.length; i++){
-            System.out.print(array1[i]);
-        }
+        //array1 = combineArrays(array1, array2);
+        //for(int i = 0; i < array1.length; i++){
+        //    System.out.print(array1[i]);
+        //}
+        getArray();
 
     }
 
@@ -84,23 +91,39 @@ public class IntegerSorter{
     	
     	return c;
     }
+    
+    public static int[] sort_method3(int[] array) { 	
+			
+    	return array;
+    }
+    
+    public static int[] getArray() {		
+    	ArrayList<Integer> list = new ArrayList<>();
+    	
+    	BufferedReader bufferedReader = null;
+		FileReader fileReader = null;
+		try {
+			fileReader = new FileReader("src/Efficiency/2power5.txt");
+			bufferedReader = new BufferedReader(fileReader);			
+			int val = 0;
+			while ((val = bufferedReader.read()) != -1) {
+				if (val != ' ') {
+					char c = (char) val;
+					System.out.print(c);
+					list.add((int) c);
+				}
+			}
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int[] array = new int[list.size()];		
+		for(int i = 0; i < array.length; i++) {
+			array[i] = list.get(i);
+		}
+		
+		return array;		
+    }		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
