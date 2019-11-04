@@ -3,8 +3,8 @@ package Efficiency;
 public class IntegerSorter{
     public static void main(String[] args) {
 
-        int[] array1 = {1, 3, 5, 7, 9};
-        int[] array2 = {2, 4, 6, 8};
+        int[] array1 = {1, 3, 5, 7, 9, 14};
+        int[] array2 = {2, 4, 6, 8, 10, 11};
         for(int i = 0; i < array1.length; i++){
             System.out.print(array1[i]);
         }
@@ -13,6 +13,7 @@ public class IntegerSorter{
         for(int i = 0; i < array1.length; i++){
             System.out.print(array1[i]);
         }
+
     }
 
     public static int[] sort_method1(int[] array) {
@@ -41,32 +42,46 @@ public class IntegerSorter{
             }
         }
         return array;
-    }
+    }   
     
     public static int[] combineArrays(int[] a, int[] b) {
     	int[] c = new int[a.length + b.length];
     	int smallerIndex = 0;
     	int largerIndex = 0;
+    	int cIndex = 0;
     	int smaller[], larger[];
+    	
     	if(a.length < b.length) {
     		smaller = a;
     		larger = b;    		
     	}else {
     		smaller = b;
-    		larger = a;    		
+    		larger = a;     		
     	}
-    	while(smallerIndex <= smaller.length-1 && largerIndex <= larger.length-1) {
+    	while(smallerIndex <= smaller.length-1) {
     		if(smaller[smallerIndex] < larger[largerIndex]) {
-    			c[smallerIndex] = smaller[smallerIndex];    
+    			c[cIndex] = smaller[smallerIndex];    
     			smallerIndex++;
     		}else {
-    			c[largerIndex] = larger[largerIndex];
+    			c[cIndex] = larger[largerIndex];
     			largerIndex++;
     		}
+    		cIndex++;
     	}
-    	for(int i = smallerIndex; i <= larger.length-1; i++) {
-    		c[smallerIndex] = larger[i];
-    	}
+    	
+    	if(a.length < b.length || b.length < a.length) {
+    		for(int i = smallerIndex+1; i <= larger.length; i++) {
+        		System.out.println("y"+ larger[i-1]);
+        		c[cIndex] = larger[i-1];
+        		if(cIndex < c.length-1) {
+            		cIndex++;
+            		}
+        		} 
+    		}else {
+    			c[cIndex] = larger[larger.length-1];
+    		}
+    	
+    	
     	return c;
     }
 }
