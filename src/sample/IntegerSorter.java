@@ -1,27 +1,21 @@
 package Efficiency;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class IntegerSorter{
-    public static void main(String[] args) {
-
-        int[] array1 = {1, 3, 5, 7, 9, 14};
-        int[] array2 = {2, 4, 6, 8, 10, 11};
-        for(int i = 0; i < array1.length; i++){
-            System.out.print(array1[i]);
-        }
-        System.out.print("\n");
-        //array1 = combineArrays(array1, array2);
-        //for(int i = 0; i < array1.length; i++){
-        //    System.out.print(array1[i]);
-        //}
-        getArray();
-
+	public static void main(String[] args) 
+    {
+        //Unsorted array
+        Comparable[] a =  getArray();
+         
+        //Call merge sort
+        sort_method3(a);
+         
+        //Check the output which is sorted array
+        System.out.println(Arrays.toString(a));
     }
 
     public static int[] sort_method1(int[] array) {
@@ -52,57 +46,57 @@ public class IntegerSorter{
         return array;
     }   
     
-    public static int[] combineArrays(int[] a, int[] b) {
-    	int[] c = new int[a.length + b.length];
-    	int smallerIndex = 0;
-    	int largerIndex = 0;
-    	int cIndex = 0;
-    	int smaller[], larger[];
-    	
-    	if(a.length < b.length) {
-    		smaller = a;
-    		larger = b;    		
-    	}else {
-    		smaller = b;
-    		larger = a;     		
-    	}
-    	while(smallerIndex <= smaller.length-1) {
-    		if(smaller[smallerIndex] < larger[largerIndex]) {
-    			c[cIndex] = smaller[smallerIndex];    
-    			smallerIndex++;
-    		}else {
-    			c[cIndex] = larger[largerIndex];
-    			largerIndex++;
-    		}
-    		cIndex++;
-    	}
-    	
-    	if(a.length < b.length || b.length < a.length) {
-    		for(int i = smallerIndex+1; i <= larger.length; i++) {
-        		System.out.println("y"+ larger[i-1]);
-        		c[cIndex] = larger[i-1];
-        		if(cIndex < c.length-1) {
-            		cIndex++;
-            		}
-        		} 
-    		}else {
-    			c[cIndex] = larger[larger.length-1];
-    		}
-    	
-    	
-    	return c;
-    }
+
     
-    public static int[] sort_method3(int[] array) { 
-    	if(array.length == 2) {
-    		combineArrays(Arrays.copyOfRange(array, 0, array.length/2-1), Arrays.copyOfRange(array, array.length/2, array.length-1));
-    	}else {
-    		sort_method3();
-    	}
-    	return array;
+    @SuppressWarnings("rawtypes") 
+    public static Comparable[] sort_method3(Comparable[] first2) 
+    {
+        //If list is empty return list
+        if (first2.length <= 1) {
+            return first2;
+        }
+         
+        //Split the array in half
+        Comparable[] first = new Comparable[first2.length / 2];
+        Comparable[] second = new Comparable[first2.length - first.length];
+        System.arraycopy(first2, 0, first, 0, first.length);
+        System.arraycopy(first2, first.length, second, 0, second.length);
+         
+        //Create new instance of sort_method3 with the new arrays
+        sort_method3(first);
+        sort_method3(second);
+         
+        //merge the two arrays back together
+        combineArrays(first, second, first2);
+        return first2;
     }
+     
+    @SuppressWarnings({ "rawtypes", "unchecked" }) 
+    private static void combineArrays(Comparable[] first, Comparable[] second, Comparable[] result) 
+    {
+        //Index Position in first, second and final arrays starting with 0th element
+        int i = 0, j = 0, k = 0;       
+         
+        //Compare elements at i and j, and move smaller element at k
+        while (i < first.length && j < second.length) 
+        {
+            if (first[i].compareTo(second[j]) < 0) {
+                result[k] = first[i];
+                i++;
+            }else {
+                result[k] = second[j];
+                j++;
+            }
+            k++;
+        }
+        //copy remaining elements from both halves - each half will have already sorted elements
+        System.arraycopy(first, i, result, k, first.length - i);
+        System.arraycopy(second, j, result, k, second.length - j);
+    }    
     
-    public static int[] getArray() {		
+    
+    @SuppressWarnings("rawtypes")
+	public static Comparable[] getArray() {		
     	ArrayList<Integer> list = new ArrayList<>();
     	
     	BufferedReader bufferedReader = null;
@@ -112,9 +106,8 @@ public class IntegerSorter{
 			bufferedReader = new BufferedReader(fileReader);			
 			int val = 0;
 			while ((val = bufferedReader.read()) != -1) {
-				if (val != ' ') {
+				if (val != ' ') {	
 					char c = (char) val;
-					System.out.print(c);
 					list.add((int) c);
 				}
 			}
@@ -123,7 +116,10 @@ public class IntegerSorter{
 			e.printStackTrace();
 		}
 		
-		int[] array = new int[list.size()];		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		Comparable[] array = new Comparable[list.size()];		
 		for(int i = 0; i < array.length; i++) {
 			array[i] = list.get(i);
 		}
@@ -131,4 +127,3 @@ public class IntegerSorter{
 		return array;		
     }		
 }
-
