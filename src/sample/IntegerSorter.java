@@ -1,13 +1,15 @@
-package Efficiency;
+package sample;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class IntegerSorter{
-	public static void main(String[] args) 
-    {
+	public static void main(String[] args) throws FileNotFoundException {
         //Unsorted array
         Comparable[] a =  getArray();
          
@@ -16,6 +18,8 @@ public class IntegerSorter{
          
         //Check the output which is sorted array
         System.out.println(Arrays.toString(a));
+        //System.out.print(Arrays.toString(getArray()));
+
     }
 
     public static int[] sort_method1(int[] array) {
@@ -96,34 +100,15 @@ public class IntegerSorter{
     
     
     @SuppressWarnings("rawtypes")
-	public static Comparable[] getArray() {		
-    	ArrayList<Integer> list = new ArrayList<>();
-    	
-    	BufferedReader bufferedReader = null;
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader("src/Efficiency/2power5.txt");
-			bufferedReader = new BufferedReader(fileReader);			
-			int val = 0;
-			while ((val = bufferedReader.read()) != -1) {
-				if (val != ' ') {	
-					char c = (char) val;
-					list.add((int) c);
-				}
-			}
-					
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		Comparable[] array = new Comparable[list.size()];		
-		for(int i = 0; i < array.length; i++) {
-			array[i] = list.get(i);
-		}
-		
-		return array;		
+	public static Comparable[] getArray() throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(new File("src/Efficiency/2power5.txt"));
+        Comparable [] tall = new Comparable [(int)Math.pow(2, 5)];
+        int i = 0;
+        while(scanner.hasNext()){
+            tall[i++] = scanner.nextInt();
+        }
+        scanner.close();
+		return tall;
     }		
 }
