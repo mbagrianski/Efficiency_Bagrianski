@@ -5,17 +5,46 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class IntegerSorter{
-	public static void main(String[] args) throws FileNotFoundException 
+
+    public static void main(String[] args) throws FileNotFoundException
     {
         //Unsorted array
-        int[] a =  getArray();
-        	 sort_method2(a);
-         
-        //Call merge sort
-        
-         
-        //Check the output which is sorted array
-        
+        int[] a1 =  getArray();
+        int[] b1 =  getArray();
+        int[] c1 =  getArray();
+
+        int[] a2 =  getArray();
+        int[] b2 =  getArray();
+        int[] c2 =  getArray();
+        int[] a3 =  getArray();
+        int[] b3 =  getArray();
+        int[] c3 =  getArray();
+
+        sort_method1(a1);
+        sort_method2(b1);
+        long startTime3a = System.nanoTime();
+        sort_method3(c1);
+        long endTime3a = System.nanoTime();
+        long durationa = (endTime3a - startTime3a);  //divide by 1000000 to get milliseconds.
+        System.out.println(durationa + " m3");
+
+        sort_method1(a2);
+        sort_method2(b2);
+        long startTime3b = System.nanoTime();
+        sort_method3(c2);
+        long endTime3b = System.nanoTime();
+        long durationb = (endTime3b - startTime3b);  //divide by 1000000 to get milliseconds.
+        System.out.println(durationb + " m3");
+
+        sort_method1(a3);
+        sort_method2(b3);
+        long startTime3c = System.nanoTime();
+        sort_method3(c3);
+        long endTime3c = System.nanoTime();
+        long durationc = (endTime3c - startTime3c);  //divide by 1000000 to get milliseconds.
+        System.out.println(durationc + " m3");
+
+
     }
 
     public static int[] sort_method1(int[] array) {
@@ -55,35 +84,28 @@ public class IntegerSorter{
         System.out.println(duration + " m2");
         return array;
     }   
-    
 
-    static long startTime3 = System.nanoTime();
-    public static int[] sort_method3(int[] first2) 
+    public static int[] sort_method3(int[] array)
     {
-    	
-
         //If list is empty return list
-        if (first2.length <= 1) {
-            return first2;
+        if (array.length <= 1) {
+            return array;
         }
          
         //Split the array in half
-        int[] first = new int[first2.length / 2];
-        int[] second = new int[first2.length - first.length];
-        System.arraycopy(first2, 0, first, 0, first.length);
-        System.arraycopy(first2, first.length, second, 0, second.length);
+        int[] first = new int[array.length / 2];
+        int[] second = new int[array.length - first.length];
+        System.arraycopy(array, 0, first, 0, first.length);
+        System.arraycopy(array, first.length, second, 0, second.length);
          
         //Create new instance of sort_method3 with the new arrays
         sort_method3(first);
         sort_method3(second);
          
         //merge the two arrays back together
-        combineArrays(first, second, first2);
-        long endTime = System.nanoTime();
+        combineArrays(first, second, array);
 
-        long duration = (endTime - startTime3);  //divide by 1000000 to get milliseconds.
-        System.out.println(duration + " m1");
-        return first2;
+        return array;
     }
      
     private static void combineArrays(int[] first, int[] second, int[] result) 
@@ -110,17 +132,18 @@ public class IntegerSorter{
     
     
 	public static int[] getArray() throws FileNotFoundException {		
-    	
-    	Scanner scanner = new Scanner(new File("src/Files/2power5.txt"));
-    	int [] array = new int [(int) Math.pow(2, 5)];
+
+        File file = new File("src/Files/2power17.txt");
+    	Scanner scanner = new Scanner(file);
+    	char num = file.getName().charAt(6);
+        int number = Integer.parseInt(String.valueOf(num));
+        int [] array = new int [(int) Math.pow(2, 17)];
     	int i = 0;
     	while(scanner.hasNextInt())
     	{
     	     array[i++] = scanner.nextInt();
     	}
     	scanner.close();
-		
-		
 		return array;		
     }		
 }
