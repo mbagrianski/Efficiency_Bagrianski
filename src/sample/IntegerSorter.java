@@ -1,10 +1,7 @@
 package Efficiency;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -13,15 +10,17 @@ public class IntegerSorter{
     {
         //Unsorted array
         int[] a =  getArray();
+        	 sort_method2(a);
          
         //Call merge sort
-        sort_method2(a);
+        
          
         //Check the output which is sorted array
-        System.out.println(Arrays.toString(a));
+        
     }
 
     public static int[] sort_method1(int[] array) {
+    	long startTime = System.nanoTime();
         int temp;
         for(int index = array.length-2; index >= 0; index--) {
             for(int i = 0; i <= index; i++) {
@@ -32,10 +31,15 @@ public class IntegerSorter{
                 }
             }
         }
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        System.out.println(duration + " m1");
         return array;
     }
 
     public static int[] sort_method2(int[] array) {
+    	long startTime = System.nanoTime();
         int temp;
         for(int index = 0; index <= array.length-1; index++) {
             for(int i = index + 1; i <= array.length-1; i++) {
@@ -46,13 +50,19 @@ public class IntegerSorter{
                 }
             }
         }
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        System.out.println(duration + " m2");
         return array;
     }   
     
 
-    
+    static long startTime3 = System.nanoTime();
     public static int[] sort_method3(int[] first2) 
     {
+    	
+
         //If list is empty return list
         if (first2.length <= 1) {
             return first2;
@@ -70,6 +80,10 @@ public class IntegerSorter{
          
         //merge the two arrays back together
         combineArrays(first, second, first2);
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime3);  //divide by 1000000 to get milliseconds.
+        System.out.println(duration + " m1");
         return first2;
     }
      
@@ -98,8 +112,8 @@ public class IntegerSorter{
     
 	public static int[] getArray() throws FileNotFoundException {		
     	
-    	Scanner scanner = new Scanner(new File("src/Efficiency/2power5.txt"));
-    	int [] array = new int [(int) Math.pow(2, 5)];
+    	Scanner scanner = new Scanner(new File("src/Efficiency/2power13.txt"));
+    	int [] array = new int [(int) Math.pow(2, 13)];
     	int i = 0;
     	while(scanner.hasNextInt())
     	{
