@@ -1,4 +1,4 @@
-package sample;
+package Efficiency;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,22 +9,21 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class IntegerSorter{
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException 
+    {
         //Unsorted array
-        Comparable[] a =  getArray();
+        int[] a =  getArray();
          
         //Call merge sort
-        sort_method3(a);
+        sort_method2(a);
          
         //Check the output which is sorted array
         System.out.println(Arrays.toString(a));
-        //System.out.print(Arrays.toString(getArray()));
-
     }
 
     public static int[] sort_method1(int[] array) {
         int temp;
-        for(int index = array.length-1; index >= 0; index--) {
+        for(int index = array.length-2; index >= 0; index--) {
             for(int i = 0; i <= index; i++) {
                 if(array[i] > array[i+1]) {
                     temp = array[i];
@@ -43,7 +42,7 @@ public class IntegerSorter{
                 if(array[index] > array[i]) {
                     temp = array[i];
                     array[i] = array[index];
-                    array[i] = temp;
+                    array[index] = temp;
                 }
             }
         }
@@ -52,8 +51,7 @@ public class IntegerSorter{
     
 
     
-    @SuppressWarnings("rawtypes") 
-    public static Comparable[] sort_method3(Comparable[] first2) 
+    public static int[] sort_method3(int[] first2) 
     {
         //If list is empty return list
         if (first2.length <= 1) {
@@ -61,8 +59,8 @@ public class IntegerSorter{
         }
          
         //Split the array in half
-        Comparable[] first = new Comparable[first2.length / 2];
-        Comparable[] second = new Comparable[first2.length - first.length];
+        int[] first = new int[first2.length / 2];
+        int[] second = new int[first2.length - first.length];
         System.arraycopy(first2, 0, first, 0, first.length);
         System.arraycopy(first2, first.length, second, 0, second.length);
          
@@ -75,8 +73,7 @@ public class IntegerSorter{
         return first2;
     }
      
-    @SuppressWarnings({ "rawtypes", "unchecked" }) 
-    private static void combineArrays(Comparable[] first, Comparable[] second, Comparable[] result) 
+    private static void combineArrays(int[] first, int[] second, int[] result) 
     {
         //Index Position in first, second and final arrays starting with 0th element
         int i = 0, j = 0, k = 0;       
@@ -84,7 +81,7 @@ public class IntegerSorter{
         //Compare elements at i and j, and move smaller element at k
         while (i < first.length && j < second.length) 
         {
-            if (first[i].compareTo(second[j]) < 0) {
+            if (first[i] < second[j]) {
                 result[k] = first[i];
                 i++;
             }else {
@@ -99,16 +96,18 @@ public class IntegerSorter{
     }    
     
     
-    @SuppressWarnings("rawtypes")
-	public static Comparable[] getArray() throws FileNotFoundException {
-
-        Scanner scanner = new Scanner(new File("src/Efficiency/2power5.txt"));
-        Comparable [] tall = new Comparable [(int)Math.pow(2, 5)];
-        int i = 0;
-        while(scanner.hasNext()){
-            tall[i++] = scanner.nextInt();
-        }
-        scanner.close();
-		return tall;
+	public static int[] getArray() throws FileNotFoundException {		
+    	
+    	Scanner scanner = new Scanner(new File("src/Efficiency/2power5.txt"));
+    	int [] array = new int [(int) Math.pow(2, 5)];
+    	int i = 0;
+    	while(scanner.hasNextInt())
+    	{
+    	     array[i++] = scanner.nextInt();
+    	}
+    	scanner.close();
+		
+		
+		return array;		
     }		
 }
