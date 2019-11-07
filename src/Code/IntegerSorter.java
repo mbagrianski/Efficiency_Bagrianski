@@ -16,6 +16,7 @@ public class IntegerSorter{
         int[] a2 =  getArray();
         int[] b2 =  getArray();
         int[] c2 =  getArray();
+
         int[] a3 =  getArray();
         int[] b3 =  getArray();
         int[] c3 =  getArray();
@@ -133,11 +134,11 @@ public class IntegerSorter{
     
 	public static int[] getArray() throws FileNotFoundException {		
 
-        File file = new File("src/Files/2power17.txt");
+        File file = new File("src/Files/2power19.txt");
     	Scanner scanner = new Scanner(file);
     	char num = file.getName().charAt(6);
         int number = Integer.parseInt(String.valueOf(num));
-        int [] array = new int [(int) Math.pow(2, 17)];
+        int [] array = new int [(int) Math.pow(2, 19)];
     	int i = 0;
     	while(scanner.hasNextInt())
     	{
