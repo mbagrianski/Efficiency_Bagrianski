@@ -8,7 +8,8 @@ public class IntegerSorter{
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        //Unsorted array
+        //create arrays (all the same and unsorted) all at once- the program runs for 3 cycles
+        //which saves time for me (some arrays take several minutes to sort)
         int[] a1 =  getArray();
         int[] b1 =  getArray();
         int[] c1 =  getArray();
@@ -21,12 +22,12 @@ public class IntegerSorter{
         int[] b3 =  getArray();
         int[] c3 =  getArray();
 
-        sort_method1(a1);
-        sort_method2(b1);
+        sort_method1(a1); //sort method 1 for the first time- timing is built in
+        sort_method2(b1); //sort method 2 for the first time- timing is built in
         long startTime3a = System.nanoTime();
-        sort_method3(c1);
+        sort_method3(c1); //sort method 3 for the first time- since it's a recursive method, caluculate time here
         long endTime3a = System.nanoTime();
-        long durationa = (endTime3a - startTime3a);  //divide by 1000000 to get milliseconds.
+        long durationa = (endTime3a - startTime3a);
         System.out.println(durationa + " m3");
 
         sort_method1(a2);
