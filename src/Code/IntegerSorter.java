@@ -15,6 +15,14 @@ public class IntegerSorter implements Sorter {
 
     private int[] list;
 
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        sort_method1(getArray());
+        sort_method2(getArray());
+        sort_method3(getArray());
+
+    }
+
     public static int[] sort_method1(int[] array) { //first method
     	long startTime = System.nanoTime();
         int temp;
@@ -46,13 +54,21 @@ public class IntegerSorter implements Sorter {
             }
         }
         long endTime = System.nanoTime();
-
         long duration = (endTime - startTime);
         System.out.println(duration + " m2");
         return array;
     }   
 
-    public static int[] sort_method3(int[] array)
+    public static void sort_method3(int[] array){ //calls 3rd sort method. Another method is needed because
+        // sort_method3 is recursive, and timing in a recursive method wouldn't work, so we do that here.
+        long startTime = System.nanoTime();
+        sortWithMerge(array);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+        System.out.println(duration + " m3");
+
+    }
+    public static int[] sortWithMerge(int[] array) //sorts with 3rd method
     {
         //If list is empty return list (nothing to sort)
         if (array.length <= 1) {
@@ -67,15 +83,15 @@ public class IntegerSorter implements Sorter {
         System.arraycopy(array, first.length, second, 0, second.length);
          
         //Create new instance of sort_method3 with the new arrays
-        sort_method3(first);
-        sort_method3(second);
+        sortWithMerge(first);
+        sortWithMerge(second);
          
         //merge the two arrays back together
         combineArrays(first, second, array);
 
         return array;
     }
-     
+
     public static void combineArrays(int[] first, int[] second, int[] result)
     {
         //Index Position in first, second and final arrays starting with 0th element
