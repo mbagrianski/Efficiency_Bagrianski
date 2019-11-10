@@ -1,3 +1,10 @@
+/*
+Misha Bagrianski, ICS4U1, Efficiency of algorithms assignment
+Instructor: Mr. Radulovic
+Sorts an array of 2^n | n ∈ N elements, provided by a text file with 3 different methods
+Also provides 3 samples of 3 methods for one array size. This facilitates the creation of the graph aas per requirements.
+ */
+
 package Code;
 
 import java.io.File;
@@ -35,7 +42,7 @@ public class IntegerSorter{
         long startTime3b = System.nanoTime();
         sort_method3(c2);
         long endTime3b = System.nanoTime();
-        long durationb = (endTime3b - startTime3b);  //divide by 1000000 to get milliseconds.
+        long durationb = (endTime3b - startTime3b);
         System.out.println(durationb + " m3");
 
         sort_method1(a3);
@@ -43,17 +50,17 @@ public class IntegerSorter{
         long startTime3c = System.nanoTime();
         sort_method3(c3);
         long endTime3c = System.nanoTime();
-        long durationc = (endTime3c - startTime3c);  //divide by 1000000 to get milliseconds.
+        long durationc = (endTime3c - startTime3c);
         System.out.println(durationc + " m3");
 
 
     }
 
-    public static int[] sort_method1(int[] array) {
+    public static int[] sort_method1(int[] array) { //first method
     	long startTime = System.nanoTime();
         int temp;
-        for(int index = array.length-2; index >= 0; index--) {
-            for(int i = 0; i <= index; i++) {
+        for(int index = array.length-2; index >= 0; index--) {//start at index of greatest element, go backwards
+            for(int i = 0; i <= index; i++) { //start at index 0 and go up to 'index'
                 if(array[i] > array[i+1]) {
                     temp = array[i];
                     array[i] = array[i+1];
@@ -62,8 +69,7 @@ public class IntegerSorter{
             }
         }
         long endTime = System.nanoTime();
-
-        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        long duration = (endTime - startTime);
         System.out.println(duration + " m1");
         return array;
     }
@@ -71,8 +77,8 @@ public class IntegerSorter{
     public static int[] sort_method2(int[] array) {
     	long startTime = System.nanoTime();
         int temp;
-        for(int index = 0; index <= array.length-1; index++) {
-            for(int i = index + 1; i <= array.length-1; i++) {
+        for(int index = 0; index <= array.length-1; index++) { //start at index of 0
+            for(int i = index + 1; i <= array.length-1; i++) { //start from index + 1 and go up
                 if(array[index] > array[i]) {
                     temp = array[i];
                     array[i] = array[index];
@@ -82,14 +88,14 @@ public class IntegerSorter{
         }
         long endTime = System.nanoTime();
 
-        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        long duration = (endTime - startTime);
         System.out.println(duration + " m2");
         return array;
     }   
 
     public static int[] sort_method3(int[] array)
     {
-        //If list is empty return list
+        //If list is empty return list (nothing to sort)
         if (array.length <= 1) {
             return array;
         }
@@ -97,6 +103,7 @@ public class IntegerSorter{
         //Split the array in half
         int[] first = new int[array.length / 2];
         int[] second = new int[array.length - first.length];
+        //create copy of arrays
         System.arraycopy(array, 0, first, 0, first.length);
         System.arraycopy(array, first.length, second, 0, second.length);
          
@@ -135,11 +142,9 @@ public class IntegerSorter{
     
 	public static int[] getArray() throws FileNotFoundException {		
 
-        File file = new File("src/Files/2power19.txt");
+        File file = new File("src/Files/2power9.txt");
     	Scanner scanner = new Scanner(file);
-    	char num = file.getName().charAt(6);
-        int number = Integer.parseInt(String.valueOf(num));
-        int [] array = new int [(int) Math.pow(2, 19)];
+        int [] array = new int [(int) Math.pow(2, 9)]; //specifies size of array. The power must equal the power in the filename.
     	int i = 0;
     	while(scanner.hasNextInt())
     	{
