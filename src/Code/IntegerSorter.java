@@ -11,48 +11,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class IntegerSorter{
+public class IntegerSorter implements Sorter {
+
+    private int[] list;
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        //create arrays (all the same and unsorted) all at once- the program runs for 3 cycles
-        //which saves time for me (some arrays take several minutes to sort)
-        int[] a1 =  getArray();
-        int[] b1 =  getArray();
-        int[] c1 =  getArray();
-
-        int[] a2 =  getArray();
-        int[] b2 =  getArray();
-        int[] c2 =  getArray();
-
-        int[] a3 =  getArray();
-        int[] b3 =  getArray();
-        int[] c3 =  getArray();
-
-        sort_method1(a1); //sort method 1 for the first time- timing is built in
-        sort_method2(b1); //sort method 2 for the first time- timing is built in
-        long startTime3a = System.nanoTime();
-        sort_method3(c1); //sort method 3 for the first time- since it's a recursive method, caluculate time here
-        long endTime3a = System.nanoTime();
-        long durationa = (endTime3a - startTime3a);
-        System.out.println(durationa + " m3");
-
-        sort_method1(a2);
-        sort_method2(b2);
-        long startTime3b = System.nanoTime();
-        sort_method3(c2);
-        long endTime3b = System.nanoTime();
-        long durationb = (endTime3b - startTime3b);
-        System.out.println(durationb + " m3");
-
-        sort_method1(a3);
-        sort_method2(b3);
-        long startTime3c = System.nanoTime();
-        sort_method3(c3);
-        long endTime3c = System.nanoTime();
-        long durationc = (endTime3c - startTime3c);
-        System.out.println(durationc + " m3");
-
 
     }
 
@@ -117,7 +81,7 @@ public class IntegerSorter{
         return array;
     }
      
-    private static void combineArrays(int[] first, int[] second, int[] result) 
+    public static void combineArrays(int[] first, int[] second, int[] result)
     {
         //Index Position in first, second and final arrays starting with 0th element
         int i = 0, j = 0, k = 0;       
@@ -140,7 +104,7 @@ public class IntegerSorter{
     }    
     
     
-	public static int[] getArray() throws FileNotFoundException {		
+	public static int[] getArray() throws FileNotFoundException {
 
         File file = new File("src/Files/2power9.txt");
     	Scanner scanner = new Scanner(file);
@@ -151,6 +115,40 @@ public class IntegerSorter{
     	     array[i++] = scanner.nextInt();
     	}
     	scanner.close();
-		return array;		
-    }		
+    	return array;
+    }
+
+    @Override
+    public void setList(int[] list) {
+        this.list = list;
+    }
+
+    @Override
+    public int[] getList() {
+        return list;
+    }
+
+    @Override
+    public void sort(int type) {
+        switch (type){
+            case 1:
+                sort_method1(getList());
+                return;
+            case 2:
+                sort_method2(getList());
+                return;
+            case 3:
+                sort_method3(getList());
+                return;
+        }
+    }
+
+    @Override
+    public String toString() {
+        String str = null;
+        for(int i = 0; i < getList().length; i++){
+            str += getList()[i];
+        }
+        return str;
+    }
 }
