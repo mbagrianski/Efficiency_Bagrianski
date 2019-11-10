@@ -15,11 +15,6 @@ public class IntegerSorter implements Sorter {
 
     private int[] list;
 
-    public static void main(String[] args) throws FileNotFoundException
-    {
-
-    }
-
     public static int[] sort_method1(int[] array) { //first method
     	long startTime = System.nanoTime();
         int temp;
